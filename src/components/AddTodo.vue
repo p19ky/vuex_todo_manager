@@ -1,12 +1,25 @@
 <template>
-  <div>
+  <div style="margin-top: 2rem">
     <h3>Add Todo</h3>
-    <div class="add">
-      <form @submit="onSubmit">
-        <input type="text" v-model="title" placeholder="Add Todo..." />
-        <input type="submit" value="Submit" />
-      </form>
-    </div>
+    <b-form @submit="onSubmit">
+      <b-input
+        type="text"
+        v-model="title"
+        placeholder="Add Todo..."
+        @focus="isAddTodoInputFocused = true"
+        @blur="isAddTodoInputFocused = false"
+        class="addTodoInput"
+        :class="{ greenFocusShadow: isAddTodoInputFocused }"
+      />
+      <b-button
+        type="submit"
+        @focus="isAddTodoButtonFocused = true"
+        @blur="isAddTodoButtonFocused = false"
+        class="submitTodoButton"
+        :class="{ greenFocusShadow: isAddTodoButtonFocused }"
+        >Submit</b-button
+      >
+    </b-form>
   </div>
 </template>
 
@@ -17,12 +30,15 @@ export default {
   data() {
     return {
       title: "",
+      isAddTodoButtonFocused: false,
+      isAddTodoInputFocused: false,
     };
   },
   methods: {
     ...mapActions(["addTodo"]),
     onSubmit(e) {
       e.preventDefault();
+      if (!this.title.trim()) return;
       this.addTodo(this.title);
       this.title = "";
     },
@@ -35,18 +51,22 @@ form {
   display: flex;
 }
 
-input[type="text"] {
+.addTodoInput {
   flex: 10;
   padding: 10px;
   border: 1px solid #41b883;
   outline: 0;
+  border-radius: 0px;
 }
 
-input[type="submit"] {
+.submitTodoButton {
   flex: 2;
   background: #41b883;
-  color: #fff;
   border: 1px solid #41b883;
-  cursor: pointer;
+  border-radius: 0px;
+}
+
+.greenFocusShadow {
+  box-shadow: 0 0 0 0.25rem rgb(65 184 131 / 50%) !important;
 }
 </style>

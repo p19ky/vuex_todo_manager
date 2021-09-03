@@ -18,7 +18,7 @@
         v-for="todo in allTodos"
         :key="todo.id"
         class="todo"
-        v-bind:class="{ complete: todo.completed, incomplete: !todo.completed }"
+        :class="{ complete: todo.completed, incomplete: !todo.completed }"
       >
         {{ todo.title }}
         <i @click="deleteTodo(todo.id)" class="fas fa-trash-alt"></i>
