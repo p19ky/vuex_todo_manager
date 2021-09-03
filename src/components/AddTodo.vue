@@ -57,6 +57,7 @@ form {
   border: 1px solid #41b883;
   outline: 0;
   border-radius: 0px;
+  margin-right: 4px;
 }
 
 .submitTodoButton {
